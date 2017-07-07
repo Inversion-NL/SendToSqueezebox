@@ -27,9 +27,9 @@ public class SendToActivity extends AppCompatActivity {
 
     class Player {
         public String name;
-        public String MACaddress;
+        String MACaddress;
 
-        public Player(String name, String MACaddress) {
+        Player(String name, String MACaddress) {
             this.name = name;
             this.MACaddress = MACaddress;
         }
@@ -62,12 +62,11 @@ public class SendToActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(), "No Players Found!", Toast.LENGTH_LONG);
             toast.show();
             finish();
-            return;
         } else if(players.size() == 1) {
             sendToSqueezebox(0);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(SendToActivity.this);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
             for(Player player: players){
                 adapter.add(player.name);
             }
@@ -128,7 +127,7 @@ public class SendToActivity extends AppCompatActivity {
 
     private class GetPlayersTask extends AsyncTask<Void, Void, List<Player>> {
         protected List<Player> doInBackground(Void... args) {
-            List<Player> players = new ArrayList<Player>();
+            List<Player> players = new ArrayList<>();
             try {
                 final String address = sharedPref.getString("server_address", "");
                 final String port = sharedPref.getString("server_port", "");
